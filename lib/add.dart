@@ -102,19 +102,23 @@ class _MyHomePageState extends State<MyHomePage> {
                       }
                     });
 
-                    var test = _dateTime.hour.toString() + _dateTime.minute.toString();
+                    var test = _dateTime.hour.toString() + _dateTime.minute.toString() + re;
+                    if (test.length == 9) {
+                      test = "0" + test;
+                    }
 
                     var storage = await SharedPreferences.getInstance();
 
                     var str = storage.getStringList("list") ?? null;
                     if(str == null) {
-                      storage.setStringList('list', [test + re]);
+                      storage.setStringList('list', [test]);
                     } else {
-                      str.add(test + re);
+                      str.add(test);
                       storage.setStringList('list', str);
                     }
 
-                    Navigator.pop(context);
+                    // Navigator.pop(context);
+                    Navigator.pushNamed(context, '/');
                   },
                   style: ButtonStyle(
                   ),
