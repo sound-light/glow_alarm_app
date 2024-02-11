@@ -103,9 +103,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     });
 
                     var test = _dateTime.hour.toString() + _dateTime.minute.toString() + re;
-                    if (test.length == 9) {
+                    if (test.length < 11) {
                       test = "0" + test;
                     }
+
+                    test += "1";
 
                     var storage = await SharedPreferences.getInstance();
 

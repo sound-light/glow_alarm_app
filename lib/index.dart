@@ -107,9 +107,14 @@ class _indexState extends State<index> {
                   ),
                   CupertinoSwitch(
                     value: test,
-                    activeColor: CupertinoColors.systemIndigo,
+                    activeColor: (str[i][11] == "1") ? CupertinoColors.systemIndigo : CupertinoColors.inactiveGray,
                     onChanged: (bool? value){
-
+                      setState(() {
+                        var check = str[i][11];
+                        str[i] = str[i].substring(0, str[i].length - 1);
+                        str[i] += (check == "1") ? "0" : "1";
+                        test = (check == "1") ? false : true;
+                      });
                     },
                   )
                 ],
