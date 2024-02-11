@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'dart:convert';
 
 class add extends StatelessWidget {
@@ -41,13 +42,27 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         body: Container(
           padding: EdgeInsets.only(
-              top: 100
+              top: 40
           ),
           child: Column(
             children: <Widget>[
-              Text(
-                  "what time do you want to get the Light Alarm?",
-                style: TextStyle(color: Colors.black),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15, 0, 0, 5),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                      "what time do you want to\nget the Light Alarm?",
+                    style: TextStyle(
+                        fontFamily: 'ProtestRiot',
+                        color: Colors.black, fontSize: 26
+                    ),
+
+
+                  ),
+                ),
+              ),
+              Container(
+                height: 20,
               ),
               hourMinute12H(),
               Container(
@@ -64,9 +79,20 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-              Text(
-                "Repeat",
-                style: TextStyle(color: Colors.black),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15, 0, 0, 5),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Repeat",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold
+                    ),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -81,50 +107,80 @@ class _MyHomePageState extends State<MyHomePage> {
 
                 ],
               ),
-              Text(
-                "Light Color",
-                style: TextStyle(color: Colors.black),
-              ),
-              Text(
-                "Smart Bulb Connection Status",
-                style: TextStyle(color: Colors.black),
-              ),
-
-              OutlinedButton(
-                  onPressed: () async {
-
-                    var re = "";
-                    repeat.forEach((element) {
-                      if(element == true) {
-                        re += "1";
-                      } else {
-                        re += "0";
-                      }
-                    });
-
-                    var test = _dateTime.hour.toString() + _dateTime.minute.toString() + re;
-                    if (test.length < 11) {
-                      test = "0" + test;
-                    }
-
-                    test += "1";
-
-                    var storage = await SharedPreferences.getInstance();
-
-                    var str = storage.getStringList("list") ?? null;
-                    if(str == null) {
-                      storage.setStringList('list', [test]);
-                    } else {
-                      str.add(test);
-                      storage.setStringList('list', str);
-                    }
-
-                    // Navigator.pop(context);
-                    Navigator.pushNamed(context, '/');
-                  },
-                  style: ButtonStyle(
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15, 10, 0, 5),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Light Color",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold
+                    ),
+                    textAlign: TextAlign.start,
                   ),
-                  child: Text("SET ALARM")
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15, 10, 0, 5),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Smart Bulb Connection Status",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+
+                    ),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+              ),
+
+              Container(
+                width: double.infinity,
+                height: 55,
+                child: OutlinedButton(
+                    onPressed: () async {
+                
+                      var re = "";
+                      repeat.forEach((element) {
+                        if(element == true) {
+                          re += "1";
+                        } else {
+                          re += "0";
+                        }
+                      });
+                
+                      var test = _dateTime.hour.toString() + _dateTime.minute.toString() + re;
+                      if (test.length < 11) {
+                        test = "0" + test;
+                      }
+                
+                      test += "1";
+                
+                      var storage = await SharedPreferences.getInstance();
+                
+                      var str = storage.getStringList("list") ?? null;
+                      if(str == null) {
+                        storage.setStringList('list', [test]);
+                      } else {
+                        str.add(test);
+                        storage.setStringList('list', str);
+                      }
+                
+                      // Navigator.pop(context);
+                      Navigator.pushNamed(context, '/');
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                          Color.fromRGBO(207, 192, 221, 100)
+                      ),
+                    ),
+                    child: Text("SET ALARM", style: TextStyle(fontFamily: 'ProtestRiot', fontSize: 18),)
+                ),
               ),
             ],
           ),
@@ -193,7 +249,10 @@ class _repeat_boxState extends State<repeat_box> {
         ),
         height: 60,
         width: 40,
-        child: Text(widget.when[0], style: TextStyle(color: Colors.black),),
+        child: Text(widget.when[0], style: TextStyle(
+            color: widget.when[2][widget.when[1]] ? Color.fromRGBO(91, 60, 190, 100) : Colors.black12,
+          fontFamily: 'ProtestRiot',
+        ),),
       ),
     );
   }

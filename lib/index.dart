@@ -13,13 +13,18 @@ class _indexState extends State<index> {
   @override
 
   List<String> str = [];
-  bool test = true;
+  List<bool> switch_list = [];
 
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_){
       update();
     });
+  }
+
+  state_update() async {
+    var storage = await SharedPreferences.getInstance();
+    storage.setStringList('list', str);
   }
 
 
@@ -31,7 +36,16 @@ class _indexState extends State<index> {
           storage.setStringList('list', []);
           str = (storage.getStringList("list") ?? null)!;
         }
-      print(str);
+
+      for(String item in str) {
+        print(item);
+        if (item[11] == "1") {
+          switch_list.add(true);
+        } else {
+          switch_list.add(false);
+        }
+      }
+
     });
   }
 
@@ -60,7 +74,19 @@ class _indexState extends State<index> {
                         str = [];
                       });
                     },
-                    child: Text("초기화(테스트용)")
+                    child: Text("초기화")
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: IconButton(
+                    icon: Icon(Icons.bug_report),
+                    onPressed: (){
+                      // 임시로 두기
+                      setState(() {
+                        Navigator.pushNamed(context, '/alarm1');
+                      });
+                    },
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -74,6 +100,7 @@ class _indexState extends State<index> {
                     },
                   ),
                 ),
+
 
               ]
             ),
@@ -93,7 +120,7 @@ class _indexState extends State<index> {
                   Text(str[i][0].toString() + str[i][1].toString() + ":" + str[i][2].toString() + str[i][3].toString(),
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30)),
                   Container(
-                    width: 60,
+                    width: 15,
                   ),
                   Text("M", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: (str[i][4] == "1") ? CupertinoColors.systemIndigo : Colors.grey),),
                   Text("T", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: (str[i][5] == "1") ? CupertinoColors.systemIndigo : Colors.grey),),
@@ -105,17 +132,58 @@ class _indexState extends State<index> {
                   Container(
                     width: 20,
                   ),
-                  CupertinoSwitch(
-                    value: test,
-                    activeColor: (str[i][11] == "1") ? CupertinoColors.systemIndigo : CupertinoColors.inactiveGray,
-                    onChanged: (bool? value){
-                      setState(() {
-                        var check = str[i][11];
-                        str[i] = str[i].substring(0, str[i].length - 1);
-                        str[i] += (check == "1") ? "0" : "1";
-                        test = (check == "1") ? false : true;
-                      });
-                    },
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: CupertinoSwitch(
+                      value: switch_list[i],
+                      activeColor: (str[i][11] == "1") ? CupertinoColors.systemIndigo : CupertinoColors.inactiveGray,
+                      onChanged: (bool? value){
+                        setState(() {
+                          var check = str[i][11];
+                          str[i] = str[i].substring(0, str[i].length - 1);
+                          str[i] += (check == "1") ? "0" : "1";
+                          switch_list[i] = (check == "1") ? false : true;
+                          state_update();
+                          // print(str);
+                        });
+                      },
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: IconButton(
+                        onPressed: (){
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text(
+                                    "현재 알람을 삭제하겠습니까?",
+                                    style: TextStyle(color: Colors.black, fontSize: 18),
+                                  ),
+                                  content: Text(
+                                    "삭제된 알람은 되돌릴 수 없습니다.",
+                                    style: TextStyle(color: Colors.black, fontSize: 14),
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: (){
+                                          print(str[i]);
+                                          setState(() {
+                                            str.removeAt(i);
+                                            state_update();
+                                          });
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Center(child: Text("삭제", style: TextStyle(color: Colors.redAccent, fontSize: 18),))
+                                    ),
+                                  ],
+                                );
+                              }
+                          );
+                        },
+                        icon: Icon(Icons.close, size: 15,)
+                    ),
                   )
                 ],
                         ),

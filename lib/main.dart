@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_konkuk_teamsix/alarm1.dart';
 import 'package:gdsc_konkuk_teamsix/index.dart';
 import 'package:gdsc_konkuk_teamsix/init.dart';
 import 'package:gdsc_konkuk_teamsix/add.dart';
@@ -12,6 +13,7 @@ void main() {
         '/': (context) => index(),
         '/loading': (context) => init(),
         '/add': (context) => add(),
+        '/alarm1': (context) => alarm1(),
       },
       debugShowCheckedModeBanner: false,
       theme: theme
