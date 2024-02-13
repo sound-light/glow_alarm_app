@@ -4,6 +4,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:convert';
 
+const List<String> color_list = <String>['Red', 'Orange', 'Yellow', 'Green', 'Blue', 'White'];
+
 class add extends StatelessWidget {
   add({super.key});
 
@@ -26,10 +28,19 @@ class _MyHomePageState extends State<MyHomePage> {
 
   DateTime _dateTime = DateTime.now();
   List<bool> repeat = [false, false, false, false, false, false, false];
+  String color = "red";
 
   change_repeat(i){
     setState(() {
       repeat[i] = !repeat[i];
+    });
+  }
+
+  change_color(j) {
+
+    setState(() {
+      color = j;
+      print(color);
     });
   }
 
@@ -122,22 +133,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(15, 10, 0, 5),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Smart Bulb Connection Status",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
 
-                    ),
-                    textAlign: TextAlign.start,
-                  ),
-                ),
+              Container(
+                margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                decoration: BoxDecoration(border: Border.all(width: 1, color: Colors.black12)),
+                  child: DropdownMenuExample(color_list : color_list, change_color: change_color)
               ),
+
+              Container(height: 50,),
+
+
 
               Container(
                 width: double.infinity,
@@ -254,6 +259,38 @@ class _repeat_boxState extends State<repeat_box> {
           fontFamily: 'ProtestRiot',
         ),),
       ),
+    );
+  }
+}
+
+
+class DropdownMenuExample extends StatefulWidget {
+  const DropdownMenuExample({super.key, this.color_list, this.change_color});
+  final color_list;
+  final change_color;
+
+  @override
+  State<DropdownMenuExample> createState() => _DropdownMenuExampleState();
+}
+
+class _DropdownMenuExampleState extends State<DropdownMenuExample> {
+  var dropdownValue = color_list.first;
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownMenu<String>(
+      initialSelection: color_list.first,
+      onSelected: (String? value) {
+        // This is called when the user selects an item.
+        setState(() {
+          dropdownValue = value!;
+          widget.change_color(dropdownValue);
+        });
+      },
+      dropdownMenuEntries: color_list.map<DropdownMenuEntry<String>>((String value) {
+        return DropdownMenuEntry<String>(value: value.toLowerCase(), label: value.toLowerCase());
+      }).toList(),
+      width: double.maxFinite,
     );
   }
 }

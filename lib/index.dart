@@ -14,6 +14,8 @@ class _indexState extends State<index> {
 
   List<String> str = [];
   List<bool> switch_list = [];
+  List<String> blub_list = <String>['bulb1', 'bulb2', 'bulb3'];
+  bool connect = true;
 
   void initState() {
     super.initState();
@@ -75,6 +77,65 @@ class _indexState extends State<index> {
                       });
                     },
                     child: Text("초기화")
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: IconButton(
+                    icon: Icon(connect? Icons.lightbulb : Icons.warning,
+                        color: connect? Colors.green : Colors.redAccent
+                    ),
+                    onPressed: (){
+
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text(
+                                "연결 상태를 바꾸시겠습니까?",
+                                style: TextStyle(color: Colors.black, fontSize: 20),
+                              ),
+                              content: Container(
+                                margin: EdgeInsets.fromLTRB(0, 15, 0, 0),
+
+                                  child: DropdownMenuExample(blub_list: blub_list),
+                                decoration: BoxDecoration(
+                                  border: Border.all(width: 0.5, color: Colors.black12)
+                                ),
+                              ),
+                              actions: [
+                                Row(
+                                  children: [
+                                    TextButton(
+                                      onPressed: (){
+                                        setState(() {
+                                          connect = false;
+                                          Navigator.pop(context);
+                                        });
+                                      },
+                                      child: Text("연결 해제", style: TextStyle(color: Colors.red)),
+                                    ),
+                                    TextButton(
+                                      onPressed: (){
+                                        setState(() {
+                                          connect = true;
+                                          Navigator.pop(context);
+
+                                        });
+                                      },
+                                      child: Text("상태 변경"),
+                                    ),
+                                  ],
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                )
+
+                              ],
+                            );
+                          }
+                      );
+
+
+                    },
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -211,4 +272,34 @@ class _indexState extends State<index> {
 //     return Placeholder();
 //   }
 // }
+
+class DropdownMenuExample extends StatefulWidget {
+  const DropdownMenuExample({super.key, this.blub_list});
+  final blub_list;
+
+  @override
+  State<DropdownMenuExample> createState() => _DropdownMenuExampleState();
+}
+
+class _DropdownMenuExampleState extends State<DropdownMenuExample> {
+  var dropdownValue = "test";
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownMenu<String>(
+      initialSelection: widget.blub_list.first,
+      onSelected: (String? value) {
+        // This is called when the user selects an item.
+        setState(() {
+          dropdownValue = value!;
+        });
+      },
+      dropdownMenuEntries: widget.blub_list.map<DropdownMenuEntry<String>>((String value) {
+        return DropdownMenuEntry<String>(value: value, label: value);
+      }).toList(),
+      width: double.maxFinite,
+    );
+  }
+}
+
 
