@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 const List<String> color_list = <String>['Red', 'Orange', 'Yellow', 'Green', 'Blue', 'White'];
@@ -141,43 +142,70 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
 
               Container(height: 50,),
-
-
-
               Container(
                 width: double.infinity,
                 height: 55,
                 child: OutlinedButton(
                     onPressed: () async {
                 
-                      var re = "";
+                      int i = 0;
+                      List<String> daily_set = ["MON", "TUE", "WED", "THR", "FRI", "SAT", "SUN"];
+                      List<String> repeat_day = [];
                       repeat.forEach((element) {
                         if(element == true) {
-                          re += "1";
-                        } else {
-                          re += "0";
+                          repeat_day.add(daily_set[i]);
                         }
+                        i += 1;
                       });
+
+                      var user_id = "5eb89a65-73f5-41b1-bc44-554db2e20163";
+                      bool alarm_status = true;
+
+                      color = "RED"; // 임시
+                      print(_dateTime);
+                      print(color);
+                      print(user_id);
+                      print(repeat_day);
+                      print(alarm_status);
+
+                      String URL = "34.64.206.2:8080";
+                      var test = Uri.http(URL, 'alarm');
+
+                      var response = await http.post(test, headers: {
+                        'Content-Type': 'application/json',
+                      }, body: jsonEncode({
+                        "alarm_time": _dateTime.toString(),
+                        "repeat_day": repeat_day,
+                        "light_color": color,
+                        "alarm_status": alarm_status,
+                        "user_id": user_id
+                      }));
+
+                      print('Response status: ${response.statusCode}');
+                      print('Response body: ${response.body}');
+
+
+
                 
-                      var test = _dateTime.hour.toString() + _dateTime.minute.toString() + re;
-                      if (test.length < 11) {
-                        test = "0" + test;
-                      }
-                
-                      test += "1";
-                
-                      var storage = await SharedPreferences.getInstance();
-                
-                      var str = storage.getStringList("list") ?? null;
-                      if(str == null) {
-                        storage.setStringList('list', [test]);
-                      } else {
-                        str.add(test);
-                        storage.setStringList('list', str);
-                      }
+                      // var test = _dateTime.hour.toString() + _dateTime.minute.toString() + re;
+                      // if (test.length < 11) {
+                      //   test = "0" + test;
+                      // }
+                      //
+                      // test += "1";
+                      //
+                      // var storage = await SharedPreferences.getInstance();
+                      //
+                      // var str = storage.getStringList("list") ?? null;
+                      // if(str == null) {
+                      //   storage.setStringList('list', [test]);
+                      // } else {
+                      //   str.add(test);
+                      //   storage.setStringList('list', str);
+                      // }
                 
                       // Navigator.pop(context);
-                      Navigator.pushNamed(context, '/');
+                      // Navigator.pushNamed(context, '/');
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(

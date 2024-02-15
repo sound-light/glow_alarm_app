@@ -144,7 +144,7 @@ class _indexState extends State<index> {
                     onPressed: (){
                       // 임시로 두기
                       setState(() {
-                        Navigator.pushNamed(context, '/alarm1');
+                        Navigator.pushNamed(context, '/test');
                       });
                     },
                   ),
