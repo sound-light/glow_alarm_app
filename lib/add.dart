@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:google_sign_in/google_sign_in.dart';
 
 const List<String> color_list = <String>['Red', 'Orange', 'Yellow', 'Green', 'Blue', 'White'];
 
@@ -158,7 +159,14 @@ class _MyHomePageState extends State<MyHomePage> {
                         i += 1;
                       });
 
-                      var user_id = "5eb89a65-73f5-41b1-bc44-554db2e20163";
+
+                      var googleUser = await GoogleSignIn().signIn();
+                      var email = googleUser?.email;
+                      String URL = "34.64.206.2:8080";
+                      var user_check = await http.get(Uri.http(URL, 'user/google/' + email!));
+                      var result = jsonDecode(user_check.body);
+                      var user_id = result["id"];
+
                       bool alarm_status = true;
 
                       color = "RED"; // 임시
@@ -168,7 +176,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       print(repeat_day);
                       print(alarm_status);
 
-                      String URL = "34.64.206.2:8080";
+
                       var test = Uri.http(URL, 'alarm');
 
                       var response = await http.post(test, headers: {
@@ -185,27 +193,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       print('Response body: ${response.body}');
 
 
-
-                
-                      // var test = _dateTime.hour.toString() + _dateTime.minute.toString() + re;
-                      // if (test.length < 11) {
-                      //   test = "0" + test;
-                      // }
-                      //
-                      // test += "1";
-                      //
-                      // var storage = await SharedPreferences.getInstance();
-                      //
-                      // var str = storage.getStringList("list") ?? null;
-                      // if(str == null) {
-                      //   storage.setStringList('list', [test]);
-                      // } else {
-                      //   str.add(test);
-                      //   storage.setStringList('list', str);
-                      // }
-                
-                      // Navigator.pop(context);
-                      // Navigator.pushNamed(context, '/');
+                      Navigator.pushNamed(context, '/');
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(

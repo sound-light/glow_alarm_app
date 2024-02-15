@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class init extends StatelessWidget {
   init({super.key});
@@ -54,8 +58,39 @@ class init extends StatelessWidget {
                 Container(
                   width: 300,
                   child: TextButton.icon(
-                      onPressed: (){
-                        Navigator.pushNamed(context, '/');
+                      onPressed: () async {
+                        GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+                        if (googleUser != null) {
+                          // print(googleUser.displayName);
+                          // print(googleUser.email);
+
+                          String URL = "34.64.206.2:8080";
+                          var test = Uri.http(URL, 'user');
+
+                          var user_check = await http.get(Uri.http(URL, 'user/google/' + googleUser.email));
+                          var user_check_len = jsonDecode(user_check.body).length;
+
+                          print("==로그인 체크==");
+                          print(user_check_len);
+                          if (user_check_len == 1) {
+                            var response = await http.post(test, headers: {
+                              'Content-Type': 'application/json',
+                            }, body: jsonEncode({
+                              "user_name": googleUser.displayName,
+                              "google_id": googleUser.email,
+                              "guardian_contact": "123421",
+                              "location_id": "65decb2d-acaa-4a04-b506-9d456a0aeb5e",
+                              "bulb_ip": "43214"
+                            }));
+
+                            print('Response status: ${response.statusCode}');
+                            print('Response body: ${response.body}');
+                          }
+
+                          Navigator.pushNamed(context, '/', arguments: googleUser.email);
+                        }
+
                       },
                       label: Text("Continue with Google"),
                       icon: Icon(Icons.gpp_good_outlined),
