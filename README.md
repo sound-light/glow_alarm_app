@@ -28,7 +28,7 @@ Glow Alarm은 다음과 같은 기술 스택을 사용합니다:
 
 ## 팀원 소개
 
-| 윤병욱 [@speculatingwook](https://github.com/speculatingwook))| 이지민 (@clicelee)         | 윤수혁 (@ShuYuns)          | 강성우 (@KSW-KSM)          |
+| 윤병욱 [@speculatingwook](https://github.com/speculatingwook)| 이지민 [@clicelee](https://github.com/clicelee)       | 윤수혁 [@ShuYuns](https://github.com/ShuYuns)        | 강성우 [@KSW-KSM](https://github.com/KSW-KSM)         |
 |---------------------------|-----------------------------|-----------------------------|-----------------------------|
 | Backend/PM                | Backend/Designer            | Frontend                    | AI                          |
 
