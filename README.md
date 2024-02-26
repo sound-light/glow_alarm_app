@@ -7,7 +7,7 @@
 </p>
 
 ## Project Overview
-In the event of a fire, evacuation alerts are issued but rely solely on sound, becoming ineffectual for those with deaf and hard of hearing, highlighting a critical social inequality. Neuroplasticity suggests that individuals with hearing loss often have enhanced visual capabilities, making visual alarms a preferred method for alerts, as indicated by research in the *Fire Technology journal's* "Alarm Technologies to Wake Sleeping People Who are Deaf or Hard of Hearing (2022)." This underscores the necessity for a visual warning system.
+In the event of a disaster, evacuation alerts are issued but rely solely on sound, becoming ineffectual for those with deaf and hard of hearing, highlighting a critical social inequality. Neuroplasticity suggests that individuals with hearing loss often have enhanced visual capabilities, making visual alarms a preferred method for alerts, as indicated by research in the *Fire Technology journal's* "Alarm Technologies to Wake Sleeping People Who are Deaf or Hard of Hearing (2022)." This underscores the necessity for a visual warning system.
 
 
 Addressing this need, we developed Glow Alarm, a system providing visual alerts through lights and flashes, aiding those with hearing impairments in recognizing emergency situations promptly. This system utilizes red lights and flashing effects for alerts, seamlessly integrating with current auditory alert systems to ensure quick responses during emergencies, playing a vital role in life-saving situations.
