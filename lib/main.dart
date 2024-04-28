@@ -9,7 +9,8 @@ import 'package:gdsc_konkuk_teamsix/test.dart';
 void main() {
   runApp(
     MaterialApp(
-      initialRoute: '/loading',
+      // initialRoute: '/loading',
+      initialRoute: '/',
       routes: {
         '/': (context) => index(),
         '/loading': (context) => init(),

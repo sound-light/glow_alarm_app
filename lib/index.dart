@@ -89,77 +89,77 @@ class _indexState extends State<index> {
                   children: [
                     Row(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                          child: IconButton(
-                            icon: Icon(connect? Icons.lightbulb : Icons.warning,
-                                color: connect? Colors.green : Colors.redAccent
-                            ),
-                            onPressed: (){
-
-                              showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: Text(
-                                        "연결 상태를 바꾸시겠습니까?",
-                                        style: TextStyle(color: Colors.black, fontSize: 20),
-                                      ),
-                                      content: Container(
-                                        margin: EdgeInsets.fromLTRB(0, 15, 0, 0),
-
-                                        child: DropdownMenuExample(blub_list: blub_list),
-                                        decoration: BoxDecoration(
-                                            border: Border.all(width: 0.5, color: Colors.black12)
-                                        ),
-                                      ),
-                                      actions: [
-                                        Row(
-                                          children: [
-                                            TextButton(
-                                              onPressed: (){
-                                                setState(() {
-                                                  connect = false;
-                                                  Navigator.pop(context);
-                                                });
-                                              },
-                                              child: Text("연결 해제", style: TextStyle(color: Colors.red)),
-                                            ),
-                                            TextButton(
-                                              onPressed: (){
-                                                setState(() {
-                                                  connect = true;
-                                                  Navigator.pop(context);
-
-                                                });
-                                              },
-                                              child: Text("상태 변경"),
-                                            ),
-                                          ],
-                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                        )
-
-                                      ],
-                                    );
-                                  }
-                              );
-
-
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                          child: IconButton(
-                            icon: Icon(Icons.bug_report),
-                            onPressed: (){
-                              // 임시로 두기
-                              setState(() {
-                                Navigator.pushNamed(context, '/test');
-                              });
-                            },
-                          ),
-                        ),
+                        // Padding(
+                        //   padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                        //   child: IconButton(
+                        //     icon: Icon(connect? Icons.lightbulb : Icons.warning,
+                        //         color: connect? Colors.green : Colors.redAccent
+                        //     ),
+                        //     onPressed: (){
+                        //
+                        //       showDialog(
+                        //           context: context,
+                        //           builder: (BuildContext context) {
+                        //             return AlertDialog(
+                        //               title: Text(
+                        //                 "연결 상태를 바꾸시겠습니까?",
+                        //                 style: TextStyle(color: Colors.black, fontSize: 20),
+                        //               ),
+                        //               content: Container(
+                        //                 margin: EdgeInsets.fromLTRB(0, 15, 0, 0),
+                        //
+                        //                 child: DropdownMenuExample(blub_list: blub_list),
+                        //                 decoration: BoxDecoration(
+                        //                     border: Border.all(width: 0.5, color: Colors.black12)
+                        //                 ),
+                        //               ),
+                        //               actions: [
+                        //                 Row(
+                        //                   children: [
+                        //                     TextButton(
+                        //                       onPressed: (){
+                        //                         setState(() {
+                        //                           connect = false;
+                        //                           Navigator.pop(context);
+                        //                         });
+                        //                       },
+                        //                       child: Text("연결 해제", style: TextStyle(color: Colors.red)),
+                        //                     ),
+                        //                     TextButton(
+                        //                       onPressed: (){
+                        //                         setState(() {
+                        //                           connect = true;
+                        //                           Navigator.pop(context);
+                        //
+                        //                         });
+                        //                       },
+                        //                       child: Text("상태 변경"),
+                        //                     ),
+                        //                   ],
+                        //                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        //                 )
+                        //
+                        //               ],
+                        //             );
+                        //           }
+                        //       );
+                        //
+                        //
+                        //     },
+                        //   ),
+                        // ),
+                        // Padding(
+                        //   padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                        //   child: IconButton(
+                        //     icon: Icon(Icons.bug_report),
+                        //     onPressed: (){
+                        //       // 임시로 두기
+                        //       setState(() {
+                        //         Navigator.pushNamed(context, '/test');
+                        //       });
+                        //     },
+                        //   ),
+                        // ),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                           child: IconButton(
@@ -309,8 +309,9 @@ class _indexState extends State<index> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        elevation: 0,
         child: Icon(Icons.add_box_outlined, color: Colors.white),
-        backgroundColor: CupertinoColors.systemIndigo,
+        backgroundColor: Color.fromRGBO(103, 66, 136, 80),
         onPressed: (){
           Navigator.pushNamed(context, '/add');
         },
