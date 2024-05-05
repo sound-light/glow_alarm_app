@@ -17,8 +17,8 @@ class init extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            Color.fromRGBO(143, 65, 214, 100),
-            Color.fromRGBO(188, 141, 231, 100)
+            Color(0xFF8E3ED6),
+            Color(0xFFBC8DE7)
           ]
         )
       ),
@@ -58,7 +58,7 @@ class init extends StatelessWidget {
                     // print(googleUser.displayName);
                     // print(googleUser.email);
 
-                    String URL = "34.64.206.2:8080";
+                    String URL = "glow-alarm-xt5lqnxq3q-uc.a.run.app";
                     var test = Uri.http(URL, 'user');
 
                     var user_check = await http.get(Uri.http(URL, 'user/google/' + googleUser.email));
